@@ -33,7 +33,7 @@
   border-bottom: var(--big-border) solid white;
 }
 
-.block {
+.cell {
   display: flex;
   width: calc(var(--cell-size));
   height: calc(var(--cell-size));
@@ -42,9 +42,21 @@
   color: white;
   font-size: calc(var(--cell-size) * 0.6);
 }
-.block:not(:last-child) {
+.cell:not(:last-child) {
   border-right: var(--small-border) solid grey;
 }
-.block:nth-child(3n+3):not(:last-child) {
+.cell:nth-child(3n+3):not(:last-child) {
   border-right: var(--big-border) solid white;
+}
+
+.cell {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+#selected {
+  background-color: cornflowerblue;
 }
