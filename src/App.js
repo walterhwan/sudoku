@@ -10,9 +10,9 @@ const startBoard = strToBoard(rawProblemStr)
 // const board = (new Array(9).fill(0)).map(() => new Array(9).fill(0))
 
 const Cell = (props) => {
-  const { num = '0', onClick, selected } = props
+  const { num = '0', onClick, selected, coSelected } = props
   const displayNum = num === '0' ? '' : num
-  const id = selected ? 'selected' : ''
+  const id = selected ? 'selected' : coSelected ? 'co-selected' : ''
   return (
     <div className="cell" onClick={onClick} id={id}>
       <p>{`${displayNum}`}</p>
@@ -23,6 +23,7 @@ Cell.propTypes = {
   num: PropTypes.string,
   onClick: PropTypes.func,
   selected: PropTypes.bool,
+  coSelected: PropTypes.bool,
 }
 
 function Board() {
@@ -44,9 +45,11 @@ function Board() {
         <div className="row" key={`row-${rowIdx}`}>
           {row.map((cellNum, colIdx) => {
             const selected = rowIdx === coord[0] && colIdx === coord[1]
+            const coSelected = rowIdx === coord[0] || colIdx === coord[1]
             return (
               <Cell
                 selected={selected}
+                coSelected={coSelected}
                 key={`cell-${rowIdx}-${colIdx}`}
                 num={cellNum}
                 onClick={handleOnClick(rowIdx, colIdx)}
