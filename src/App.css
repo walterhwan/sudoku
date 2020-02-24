@@ -2,7 +2,7 @@
   --board-size: calc(min(100vh, 100vw) * 0.8);
   --cell-size: calc(var(--board-size) / 9);
   --big-border: calc(var(--board-size) * 0.003);
-  --small-border: calc(var(--big-border) * 0.24);
+  --small-border: calc(max(var(--big-border) * 0.24, 1px));
 }
 
 .app {
