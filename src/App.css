@@ -1,7 +1,8 @@
-:root {
+#root {
   --board-size: calc(min(100vh, 100vw) * 0.8);
   --cell-size: calc(var(--board-size) / 9);
-  --border-size: calc(var(--board-size) * 0.003);
+  --big-border: calc(var(--board-size) * 0.003);
+  --small-border: calc(var(--big-border) * 0.2);
 }
 
 .app {
@@ -16,20 +17,20 @@
 
 .board {
   display: grid;
-  width: calc(var(--board-size) + var(--border-size) / 2);
-  height: calc(var(--board-size) + var(--border-size) / 2);
+  width: calc(var(--board-size) + var(--big-border) / 2);
+  height: calc(var(--board-size) + var(--big-border) / 2);
 }
 
 .row {
   display: flex;
-  width: calc(var(--board-size) + var(--border-size) / 2);
+  width: calc(var(--board-size) + var(--big-border) / 2);
   height: calc(var(--cell-size));
 }
 .row:not(:last-child) {
-  border-bottom: calc(var(--border-size) * 0.2) solid grey;
+  border-bottom: var(--small-border) solid grey;
 }
 .row:nth-child(3n+3):not(:last-child) {
-  border-bottom: calc(var(--border-size)) solid white;
+  border-bottom: var(--big-border) solid white;
 }
 
 .block {
@@ -42,8 +43,8 @@
   font-size: calc(var(--cell-size) * 0.6);
 }
 .block:not(:last-child) {
-  border-right: calc(var(--border-size) * 0.2) solid grey;
+  border-right: var(--small-border) solid grey;
 }
 .block:nth-child(3n+3):not(:last-child) {
-  border-right: calc(var(--border-size)) solid white;
+  border-right: var(--big-border) solid white;
 }
