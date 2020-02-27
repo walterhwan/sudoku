@@ -47,7 +47,7 @@ function useKey(startKey) {
 
 function Board() {
   const [board, setBoard] = React.useState(startBoard)
-  const [coord, setCoord] = React.useState([])net
+  const [coord, setCoord] = React.useState([])
   const [selectedNum, setSelectedNum] = React.useState()
   const [keyPressed, setKeyPressed] = useKey()
 
