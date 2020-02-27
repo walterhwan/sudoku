@@ -26,13 +26,44 @@ Cell.propTypes = {
   coSelected: PropTypes.bool,
 }
 
+function useKey(startKey) {
+  const [key, setKey] = React.useState(startKey)
+  // Event handlers
+  const onDown = (event) => {
+    console.log('onDown', event.key)
+    setKey(event.key)
+    // if (match(event)) setPressed(false)
+  }
+  React.useEffect(() => {
+    window.addEventListener('keydown', onDown)
+
+    return () => {
+      window.removeEventListener('keydown', onDown)
+    }
+  }, [key])
+
+  return [key, setKey]
+}
+
 function Board() {
   const [board, setBoard] = React.useState(startBoard)
-  const [coord, setCoord] = React.useState([])
+  const [coord, setCoord] = React.useState([])net
+  const [selectedNum, setSelectedNum] = React.useState()
+  const [keyPressed, setKeyPressed] = useKey()
+
+  if (/[0-9]/.test(keyPressed)) {
+    const newBoard = [...board]
+    newBoard[coord[0]][coord[1]] = keyPressed
+    setSelectedNum(keyPressed)
+    setKeyPressed()
+    setBoard(newBoard)
+  }
 
   const handleOnClick = (rowIdx, colIdx) => () => {
-     // if click on the selected cell
-    if (rowIdx === coord[0] && colIdx === coord[1]) {
+    // if click on the selected cell
+    const [row, col] = coord
+    setSelectedNum(board[rowIdx][colIdx])
+    if (rowIdx === row && colIdx === col) {
       setCoord([])
     } else {
       setCoord([rowIdx, colIdx])
@@ -45,7 +76,7 @@ function Board() {
         <div className="row" key={`row-${rowIdx}`}>
           {row.map((cellNum, colIdx) => {
             const selected = rowIdx === coord[0] && colIdx === coord[1]
-            const coSelected = rowIdx === coord[0] || colIdx === coord[1]
+            const coSelected = selectedNum !== '0' && selectedNum === cellNum
             return (
               <Cell
                 selected={selected}
@@ -65,7 +96,7 @@ function Board() {
 function App() {
   return (
     <div className="app">
-      <Board/>
+      <Board />
     </div>
   )
 }
